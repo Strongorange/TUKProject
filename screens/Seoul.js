@@ -116,31 +116,21 @@ const icons = {
   Clear: "day-sunny",
 };
 
-const Home = () => {
+const Seoul = () => {
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRefresh, setIsRefresh] = useState(false);
 
   const getWeather = async () => {
-    const { granted } = await Location.requestForegroundPermissionsAsync();
-    if (!granted) {
-      setOk(false);
-    }
-
-    const {
-      coords: { latitude, longitude },
-    } = await Location.getCurrentPositionAsync({ accuracy: 5 });
+    const latitude = 37.5683;
+    const longitude = 126.9778;
 
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=alerts,minutely,hourly&appid=${APIKEY}&lang=kr`
     ).then((res) => res.json());
     setForecasts(response);
     setLoading(false);
-  };
-
-  const clickWeather = (cityName) => {
-    console.log(cityName);
   };
 
   useEffect(() => {
@@ -240,4 +230,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Seoul;
