@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import * as Location from "expo-location";
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  ToastAndroid,
-} from "react-native";
+import { ActivityIndicator, Dimensions, Image } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 import Cloth from "../Cloth";
-import { feedback } from "../feedback";
 
 const APIKEY = "d36e240854776bb1f3d044a7c0c03543";
 
@@ -105,8 +99,6 @@ const Text = styled.Text`
   color: black;
 `;
 
-const Touchable = styled.TouchableOpacity``;
-
 const icons = {
   Clouds: "cloudy",
   Thunderstorm: "lightning",
@@ -124,31 +116,21 @@ const icons = {
   Clear: "day-sunny",
 };
 
-const Home = () => {
+const Gwangju = () => {
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRefresh, setIsRefresh] = useState(false);
 
   const getWeather = async () => {
-    const { granted } = await Location.requestForegroundPermissionsAsync();
-    if (!granted) {
-      setOk(false);
-    }
-
-    const {
-      coords: { latitude, longitude },
-    } = await Location.getCurrentPositionAsync({ accuracy: 5 });
+    const latitude = 35.87222;
+    const longitude = 128.6025;
 
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=alerts,minutely,hourly&appid=${APIKEY}&lang=kr`
     ).then((res) => res.json());
     setForecasts(response);
     setLoading(false);
-  };
-
-  const clickWeather = (cityName) => {
-    console.log(cityName);
   };
 
   useEffect(() => {
@@ -222,26 +204,22 @@ const Home = () => {
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
-                  <Cloth index={index + 1} isShirt={true} />
-                  <Touchable onPress={() => feedback(true)}>
-                    <Fontisto
-                      name="like"
-                      size={25}
-                      style={{ color: "skyblue" }}
-                    />
-                  </Touchable>
+                  <Cloth />
+                  <Fontisto
+                    name="like"
+                    size={25}
+                    style={{ color: "skyblue" }}
+                  />
                 </SlideClothColumn>
                 <ClothSeparator />
                 <SlideClothColumn>
                   <Text>하의</Text>
-                  <Cloth index={index + 1} isShirt={false} />
-                  <Touchable onPress={() => feedback(false)}>
-                    <Fontisto
-                      name="dislike"
-                      size={25}
-                      style={{ color: "tomato" }}
-                    />
-                  </Touchable>
+                  <Cloth />
+                  <Fontisto
+                    name="dislike"
+                    size={25}
+                    style={{ color: "tomato" }}
+                  />
                 </SlideClothColumn>
               </SlideClothContainer>
             </SlideContainer>
@@ -252,4 +230,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Gwangju;
