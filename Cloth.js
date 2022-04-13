@@ -68,7 +68,8 @@ export const recommend = {
     pants: {
       uri: pants[1].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
 
   2: {
@@ -78,7 +79,8 @@ export const recommend = {
     pants: {
       uri: pants[2].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   3: {
     shirts: {
@@ -87,7 +89,8 @@ export const recommend = {
     pants: {
       uri: pants[3].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   4: {
     shirts: {
@@ -96,7 +99,8 @@ export const recommend = {
     pants: {
       uri: pants[4].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   5: {
     shirts: {
@@ -105,7 +109,8 @@ export const recommend = {
     pants: {
       uri: pants[5].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   6: {
     shirts: {
@@ -114,7 +119,8 @@ export const recommend = {
     pants: {
       uri: pants[6].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   7: {
     shirts: {
@@ -123,7 +129,8 @@ export const recommend = {
     pants: {
       uri: pants[7].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
   8: {
     shirts: {
@@ -132,7 +139,8 @@ export const recommend = {
     pants: {
       uri: pants[8].uri,
     },
-    rating: 0,
+    hotRating: 0,
+    coldRating: 0,
   },
 };
 

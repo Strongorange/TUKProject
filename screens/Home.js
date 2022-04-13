@@ -225,9 +225,9 @@ const Home = () => {
                   <Cloth index={index + 1} isShirt={true} />
                   <Touchable onPress={() => feedback(true)}>
                     <Fontisto
-                      name="like"
+                      name="day-sunny"
                       size={25}
-                      style={{ color: "skyblue" }}
+                      style={{ color: "tomato" }}
                     />
                   </Touchable>
                 </SlideClothColumn>
@@ -237,9 +237,9 @@ const Home = () => {
                   <Cloth index={index + 1} isShirt={false} />
                   <Touchable onPress={() => feedback(false)}>
                     <Fontisto
-                      name="dislike"
+                      name="snowflake-5"
                       size={25}
-                      style={{ color: "tomato" }}
+                      style={{ color: "skyblue" }}
                     />
                   </Touchable>
                 </SlideClothColumn>

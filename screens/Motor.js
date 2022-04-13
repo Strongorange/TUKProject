@@ -21,10 +21,22 @@ const TouchableOpacity = styled.TouchableOpacity`
 `;
 
 const Motor = () => {
-  const [angle, setAngle] = useState(0);
+  const [topAngle, setTopAngle] = useState(0);
+  const [bottomAngle, setBottomAngle] = useState(0);
 
-  const showToast = () => {
+  const showToast = async () => {
     ToastAndroid.show(`전송되었습니다`, ToastAndroid.SHORT);
+    await fetch("http://10.0.2.2:3000", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        topAngle,
+        bottomAngle,
+      }),
+    });
   };
 
   return (
@@ -38,9 +50,9 @@ const Motor = () => {
           minimumTrackTintColor="#ee5253"
           maximumTrackTintColor="#000000"
           step={10}
-          onValueChange={(value) => setAngle(value)}
+          onValueChange={(value) => setTopAngle(value)}
         />
-        <Text>현재 각도 : {angle}</Text>
+        <Text>현재 각도 : {topAngle}</Text>
         <TouchableOpacity onPress={() => showToast()}>
           <Text>전송</Text>
         </TouchableOpacity>
@@ -54,9 +66,9 @@ const Motor = () => {
           minimumTrackTintColor="#ee5253"
           maximumTrackTintColor="#000000"
           step={10}
-          onValueChange={(value) => setAngle(value)}
+          onValueChange={(value) => setBottomAngle(value)}
         />
-        <Text>현재 각도 : {angle}</Text>
+        <Text>현재 각도 : {bottomAngle}</Text>
         <TouchableOpacity
           onPress={() => showToast()}
           style={{ backgroundColor: "wheat" }}
