@@ -1,7 +1,6 @@
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList,
 } from "@react-navigation/drawer";
 import Home from "../screens/Home";
 import Seoul from "../screens/Seoul";
@@ -44,6 +43,7 @@ const DrawerNav = createDrawerNavigator();
 
 const Drawer = () => {
   const [isWeatherOpen, setIsWeatherOpen] = useState(false);
+  const [isClosetOpen, setIsClosetOpen] = useState(false);
 
   const CustomDrawer = (props) => (
     <DrawerContentScrollView {...props}>
@@ -67,6 +67,9 @@ const Drawer = () => {
           {isWeatherOpen ? (
             <>
               <View>
+                <Cities onPress={() => props.navigation.navigate("현재날씨")}>
+                  <CityName>현재날씨</CityName>
+                </Cities>
                 <Cities onPress={() => props.navigation.navigate("서울")}>
                   <CityName>서울</CityName>
                 </Cities>
@@ -90,12 +93,29 @@ const Drawer = () => {
           ) : null}
         </View>
         <View>
-          <TouchableOpacity onPress={() => props.navigation.navigate("옷장")}>
-            <Text style={{ fontSize: 28, marginTop: 10 }}>
+          <TouchableOpacity onPress={() => setIsClosetOpen((state) => !state)}>
+            <Text style={{ fontSize: 28, marginBottom: 15 }}>
               <Ionicons name="md-shirt" size={24} color="#590696" /> {"   "}
-              나의 옷장
+              옷장
             </Text>
+            {isClosetOpen ? (
+              <Ionicons name="chevron-down" size={24} color="black" />
+            ) : (
+              <Ionicons name="chevron-forward" size={24} color="black" />
+            )}
           </TouchableOpacity>
+          {isClosetOpen ? (
+            <>
+              <View>
+                <Cities onPress={() => props.navigation.navigate("옷장")}>
+                  <CityName>옷 추가</CityName>
+                </Cities>
+                <Cities onPress={() => props.navigation.navigate("모터")}>
+                  <CityName>나의 옷장</CityName>
+                </Cities>
+              </View>
+            </>
+          ) : null}
         </View>
       </OutterView>
     </DrawerContentScrollView>
