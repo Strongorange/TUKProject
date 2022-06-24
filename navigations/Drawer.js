@@ -12,9 +12,10 @@ import Gwangju from "../screens/Daegu";
 import Motor from "../screens/Motor";
 import Closet from "../screens/Closet";
 import { Text } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
+import { UserContext } from "../UserContext";
 
 const OutterView = styled.View`
   padding: 15px;
@@ -30,6 +31,7 @@ const Cities = styled.TouchableOpacity`
 
 const CityName = styled.Text`
   font-size: 24px;
+  margin-bottom: 10px;
 `;
 
 const TouchableOpacity = styled.TouchableOpacity`
@@ -42,6 +44,8 @@ const TouchableOpacity = styled.TouchableOpacity`
 const DrawerNav = createDrawerNavigator();
 
 const Drawer = () => {
+  const context = useContext(UserContext);
+  const { isLogin, setIsLogin, userInfo, setUserInfo } = context;
   const [isWeatherOpen, setIsWeatherOpen] = useState(false);
   const [isClosetOpen, setIsClosetOpen] = useState(false);
 
@@ -49,6 +53,11 @@ const Drawer = () => {
     <DrawerContentScrollView {...props}>
       <OutterView>
         <View>
+          <TouchableOpacity>
+            <Text style={{ fontSize: 28, marginBottom: 15 }}>
+              {isLogin ? `${userInfo.username} 님 안녕하세요` : "로그인"}
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               setIsWeatherOpen((state) => !state);
