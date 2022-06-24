@@ -204,7 +204,7 @@ const Seoul = () => {
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
-                  <Cloth />
+                  <Cloth index={index + 1} isShirt={true} />
                   <Fontisto
                     name="like"
                     size={25}
@@ -214,7 +214,7 @@ const Seoul = () => {
                 <ClothSeparator />
                 <SlideClothColumn>
                   <Text>하의</Text>
-                  <Cloth />
+                  <Cloth index={index + 1} isShirt={false} />
                   <Fontisto
                     name="dislike"
                     size={25}

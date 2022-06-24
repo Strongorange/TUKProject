@@ -124,7 +124,7 @@ const icons = {
   Clear: "day-sunny",
 };
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -219,11 +219,12 @@ const Home = () => {
                   </SlideWeatherColumn>
                 </SlideForecast>
               </SlideWeatherContainer>
+
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
                   <Cloth index={index + 1} isShirt={true} />
-                  <Touchable onPress={() => feedback(true)}>
+                  <Touchable onPress={() => feedback(true, index + 1)}>
                     <Fontisto
                       name="day-sunny"
                       size={25}
@@ -235,7 +236,7 @@ const Home = () => {
                 <SlideClothColumn>
                   <Text>하의</Text>
                   <Cloth index={index + 1} isShirt={false} />
-                  <Touchable onPress={() => feedback(false)}>
+                  <Touchable onPress={() => feedback(false, index + 1)}>
                     <Fontisto
                       name="snowflake-5"
                       size={25}
