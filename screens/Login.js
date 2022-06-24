@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TouchableOpacity, Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { loginRequest, showToast } from "../request";
+import { UserContext } from "../UserContext";
 
 const View = styled.View`
   display: flex;
@@ -34,13 +35,10 @@ const Button = styled.TouchableOpacity`
 const Text = styled.Text``;
 
 const Login = ({ navigation }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const context = useContext(UserContext);
+  const { isLogin, setIsLogin, userInfo, setUserInfo } = context;
   const [idText, setIdText] = useState("");
   const [passwordText, setPasswordText] = useState("");
-
-  useEffect(() => {
-    return () => setIsLogin(false);
-  }, []);
 
   const onChangeId = (text) => {
     setIdText(text);
@@ -63,6 +61,13 @@ const Login = ({ navigation }) => {
           const data = await loginRequest(idText, passwordText);
           if (data) {
             if (data.status == 200) {
+              const { username, password, email } = data.data;
+              setUserInfo({
+                username,
+                password,
+                email,
+              });
+              setIsLogin(true);
               navigation.navigate("Drawer", { screen: "현재날씨" });
             } else {
               console.log(data);
