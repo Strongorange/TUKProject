@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components/native";
 import * as Location from "expo-location";
 import {
@@ -11,6 +11,7 @@ import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 import Cloth from "../Cloth";
 import { feedback } from "../feedback";
+import { UserContext } from "../UserContext";
 
 const APIKEY = "d36e240854776bb1f3d044a7c0c03543";
 
@@ -125,6 +126,8 @@ const icons = {
 };
 
 const Home = ({ navigation }) => {
+  const context = useContext(UserContext);
+  const { isLogin, setIsLogin, setUserInfo, userInfo } = context;
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
