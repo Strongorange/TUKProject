@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { UserContext } from "../UserContext";
-import * as Device from "expo-device";
+import { loginRequest } from "../request";
 
 const View = styled.View`
   display: flex;
@@ -60,24 +60,29 @@ const Login = ({ navigation }) => {
       <Button
         onPress={async () => {
           // 테스트 언제나 로그인
-          navigation.navigate("Drawer", { screen: "현재날씨" });
-          // 완성되면 이 코드로 되돌리기
-          // const data = await loginRequest(idText, passwordText);
-          // if (data) {
-          //   if (data.status == 200) {
-          //     const { username, password, email } = data.data;
-          //     setUserInfo({
-          //       username,
-          //       password,
-          //       email,
-          //     });
-          //     setIsLogin(true);
-          //     navigation.navigate("Drawer", { screen: "현재날씨" });
-          //   } else {
-          //     console.log(data);
-          //     showToast("다시 확인해주세요");
-          //   }
-          // }
+          // navigation.navigate("Drawer", { screen: "현재날씨" });
+          //완성되면 이 코드로 되돌리기
+          const data = await loginRequest(idText, passwordText);
+          if (data) {
+            if (data.status == 200) {
+              const { username, password, email, top, bottom, _id, createdAt } =
+                data.data;
+              setUserInfo({
+                _id,
+                username,
+                password,
+                email,
+                top,
+                bottom,
+                createdAt,
+              });
+              setIsLogin(true);
+              navigation.navigate("Drawer", { screen: "현재날씨" });
+            } else {
+              console.log(data);
+              showToast("다시 확인해주세요");
+            }
+          }
         }}
       >
         <Text>로그인</Text>

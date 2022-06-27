@@ -35,3 +35,20 @@ export const loginRequest = async (username, password) => {
   }).catch((error) => console.log(error));
   return data;
 };
+
+export const sendPhoto = async (isTop, id, base64) => {
+  console.log(isTop, id, base64);
+  const data = await axios({
+    method: "post",
+    url: `http://10.0.2.2:3000/user/data/${id}/${isTop ? "top" : "bottom"}`,
+    data: {
+      id,
+      isTop,
+      base64,
+    },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  }).catch((error) => console.log(error));
+  return data;
+};

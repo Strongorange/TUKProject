@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../UserContext";
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { Alert, Image, Dimensions } from "react-native";
-import axios from "axios";
+import { sendPhoto } from "../request";
 
 const Container = styled.View`
   flex: 1;
@@ -23,24 +24,27 @@ const Text = styled.Text``;
 const TouchableOpacity = styled.TouchableOpacity``;
 
 const Closet = () => {
+  const context = useContext(UserContext);
+  const { userInfo } = context;
   const [image, setImage] = useState(null);
 
   const pickImage = async (isTop) => {
     console.log(isTop);
-
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: false,
-      quality: 1,
       base64: true,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
       setImage(result.uri);
       Alert.alert("이미지 추가 완료");
     }
+
+    const response = await sendPhoto(isTop, userInfo._id, result.base64);
+    console.log(response);
   };
 
   return (
