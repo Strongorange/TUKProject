@@ -37,7 +37,7 @@ export const loginRequest = async (username, password) => {
 };
 
 export const sendPhoto = async (isTop, id, base64) => {
-  console.log(isTop, id, base64);
+  // console.log(isTop, id, base64);
   const data = await axios({
     method: "post",
     url: `http://10.0.2.2:3000/user/data/${id}/${isTop ? "top" : "bottom"}`,
@@ -50,5 +50,25 @@ export const sendPhoto = async (isTop, id, base64) => {
       "Content-Type": "application/json; charset=utf-8",
     },
   }).catch((error) => console.log(error));
+  // console.log("data = \n", data);
   return data;
+};
+
+export const updateDB = async (userInfo) => {
+  const data = await axios({
+    method: "post",
+    url: "http://10.0.2.2:3000/user/update",
+    data: {
+      userInfo,
+    },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  }).catch((error) => console.log(error));
+  // console.log("data = \n", data);
+  return data;
+};
+
+export const showList = () => {
+  console.log("hi");
 };
