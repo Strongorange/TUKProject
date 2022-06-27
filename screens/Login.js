@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { TouchableOpacity, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { loginRequest, showToast } from "../request";
 import { UserContext } from "../UserContext";
+import * as Device from "expo-device";
 
 const View = styled.View`
   display: flex;
@@ -36,7 +36,8 @@ const Text = styled.Text``;
 
 const Login = ({ navigation }) => {
   const context = useContext(UserContext);
-  const { isLogin, setIsLogin, userInfo, setUserInfo } = context;
+  const { isLogin, setIsLogin, userInfo, setUserInfo, isDevice, setIsDevice } =
+    context;
   const [idText, setIdText] = useState("");
   const [passwordText, setPasswordText] = useState("");
 
@@ -58,22 +59,25 @@ const Login = ({ navigation }) => {
       />
       <Button
         onPress={async () => {
-          const data = await loginRequest(idText, passwordText);
-          if (data) {
-            if (data.status == 200) {
-              const { username, password, email } = data.data;
-              setUserInfo({
-                username,
-                password,
-                email,
-              });
-              setIsLogin(true);
-              navigation.navigate("Drawer", { screen: "현재날씨" });
-            } else {
-              console.log(data);
-              showToast("다시 확인해주세요");
-            }
-          }
+          // 테스트 언제나 로그인
+          navigation.navigate("Drawer", { screen: "현재날씨" });
+          // 완성되면 이 코드로 되돌리기
+          // const data = await loginRequest(idText, passwordText);
+          // if (data) {
+          //   if (data.status == 200) {
+          //     const { username, password, email } = data.data;
+          //     setUserInfo({
+          //       username,
+          //       password,
+          //       email,
+          //     });
+          //     setIsLogin(true);
+          //     navigation.navigate("Drawer", { screen: "현재날씨" });
+          //   } else {
+          //     console.log(data);
+          //     showToast("다시 확인해주세요");
+          //   }
+          // }
         }}
       >
         <Text>로그인</Text>

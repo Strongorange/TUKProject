@@ -10,12 +10,13 @@ import Daegu from "../screens/Daegu";
 import Incheon from "../screens/Daegu";
 import Gwangju from "../screens/Daegu";
 import Motor from "../screens/Motor";
-import Closet from "../screens/Closet";
+
 import { Text } from "react-native";
 import { useState, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { UserContext } from "../UserContext";
+import Closet from "../screens/Closet";
 
 const OutterView = styled.View`
   padding: 15px;
@@ -45,7 +46,7 @@ const DrawerNav = createDrawerNavigator();
 
 const Drawer = () => {
   const context = useContext(UserContext);
-  const { isLogin, setIsLogin, userInfo, setUserInfo } = context;
+  const { isLogin, setIsLogin, userInfo, setUserInfo, isDevice } = context;
   const [isWeatherOpen, setIsWeatherOpen] = useState(false);
   const [isClosetOpen, setIsClosetOpen] = useState(false);
 
