@@ -132,7 +132,7 @@ const Home = ({ navigation }) => {
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRefresh, setIsRefresh] = useState(false);
-
+  console.log("From Home UserInfo\n\n\n\n\n", userInfo);
   const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {

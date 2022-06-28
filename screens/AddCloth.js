@@ -59,25 +59,27 @@ const AddCloth = () => {
 
     if (isTop) {
       try {
-        wait(2);
+        wait(3);
         const url = await storage()
           .ref(response.data.top[length].uri)
           .getDownloadURL();
         console.log("TOPURL = ", url);
         response.data.top[length].uri = url;
-        console.log("YEAHHHHHH", response.data.bottom[length]);
+        console.log("YEAHHHHHH", response.data.top[length]);
       } catch (error) {
         console.log(error);
       } finally {
         setUserInfo({
           ...response.data,
         });
-        console.log(userInfo);
+        console.log("From AddCloth/finally/top\n\n\n\n", userInfo);
         await updateDB(userInfo);
+        Alert.alert("Done");
+        return;
       }
     } else {
       try {
-        wait(2);
+        wait(3);
         const url = await storage()
           .ref(response.data.bottom[length].uri)
           .getDownloadURL();
@@ -92,6 +94,8 @@ const AddCloth = () => {
         });
         console.log(userInfo);
         await updateDB(userInfo);
+        Alert.alert("Done");
+        return;
       }
     }
   };

@@ -27,21 +27,24 @@ const Bottom = styled(Top)`
 
 const Text = styled.Text``;
 
-const ImageContainer = styled.FlatList`
-  background-color: grey;
+const ImageContainer = styled.FlatList``;
+
+const Image = styled.Image`
+  width: 150px;
+  height: 150px;
 `;
 
-const Image = styled.Image``;
+const Seperator = styled.View`
+  width: 20px;
+  height: 10px;
+`;
 
 const MyCloset = () => {
   const context = useContext(UserContext);
   const { userInfo, setUserInfo } = context;
+  console.log("From MyCloset userInfo\n\n\n\n", userInfo);
   const renderItem = ({ item }) => {
-    return (
-      <View>
-        <Text>{item.name}</Text>
-      </View>
-    );
+    return <Image source={{ uri: item.uri }} />;
   };
 
   useEffect(async () => {
@@ -58,13 +61,34 @@ const MyCloset = () => {
         <ImageContainer
           data={userInfo.top}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id}
           horizontal={true}
-          contentContainerStyle={{ flexGrow: 1 }}
+          ItemSeparatorComponent={() => <Seperator />}
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContents: "center",
+            alignItems: "center",
+          }}
         />
       </Top>
       <Bottom>
         <Text>Bottom</Text>
+        {userInfo.bottom.length > 0 ? (
+          <ImageContainer
+            data={userInfo.bottom}
+            renderItem={renderItem}
+            keyExtractor={(item) => item._id}
+            horizontal={true}
+            ItemSeparatorComponent={() => <Seperator />}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContents: "center",
+              alignItems: "center",
+            }}
+          />
+        ) : (
+          <Text>하의 없음</Text>
+        )}
       </Bottom>
     </View>
   );

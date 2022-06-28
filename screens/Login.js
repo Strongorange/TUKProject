@@ -36,8 +36,7 @@ const Text = styled.Text``;
 
 const Login = ({ navigation }) => {
   const context = useContext(UserContext);
-  const { isLogin, setIsLogin, userInfo, setUserInfo, isDevice, setIsDevice } =
-    context;
+  const { setIsLogin, setUserInfo, userInfo } = context;
   const [idText, setIdText] = useState("");
   const [passwordText, setPasswordText] = useState("");
 
@@ -63,18 +62,11 @@ const Login = ({ navigation }) => {
           // navigation.navigate("Drawer", { screen: "현재날씨" });
           //완성되면 이 코드로 되돌리기
           const data = await loginRequest(idText, passwordText);
+
           if (data) {
             if (data.status == 200) {
-              const { username, password, email, top, bottom, _id, createdAt } =
-                data.data;
               setUserInfo({
-                _id,
-                username,
-                password,
-                email,
-                top,
-                bottom,
-                createdAt,
+                ...data.data,
               });
               setIsLogin(true);
               navigation.navigate("Drawer", { screen: "현재날씨" });
