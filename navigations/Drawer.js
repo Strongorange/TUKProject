@@ -16,7 +16,8 @@ import { useState, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { UserContext } from "../UserContext";
-import Closet from "../screens/Closet";
+import AddCloth from "../screens/AddCloth";
+import MyCloset from "../screens/MyCloset";
 
 const OutterView = styled.View`
   padding: 15px;
@@ -117,10 +118,13 @@ const Drawer = () => {
           {isClosetOpen ? (
             <>
               <View>
-                <Cities onPress={() => props.navigation.navigate("옷장")}>
+                <Cities onPress={() => props.navigation.navigate("옷추가")}>
                   <CityName>옷 추가</CityName>
                 </Cities>
                 <Cities onPress={() => props.navigation.navigate("모터")}>
+                  <CityName>모터</CityName>
+                </Cities>
+                <Cities onPress={() => props.navigation.navigate("옷장")}>
                   <CityName>나의 옷장</CityName>
                 </Cities>
               </View>
@@ -144,7 +148,8 @@ const Drawer = () => {
       <DrawerNav.Screen name="대구" component={Daegu} />
       <DrawerNav.Screen name="광주" component={Gwangju} />
       <DrawerNav.Screen name="모터" component={Motor} />
-      <DrawerNav.Screen name="옷장" component={Closet} />
+      <DrawerNav.Screen name="옷추가" component={AddCloth} />
+      <DrawerNav.Screen name="옷장" component={MyCloset} />
     </DrawerNav.Navigator>
   );
 };

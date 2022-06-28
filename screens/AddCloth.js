@@ -24,7 +24,7 @@ const Text = styled.Text``;
 
 const TouchableOpacity = styled.TouchableOpacity``;
 
-const Closet = () => {
+const AddCloth = () => {
   function wait(sec) {
     let start = Date.now(),
       now = start;
@@ -59,12 +59,13 @@ const Closet = () => {
 
     if (isTop) {
       try {
-        wait(3);
+        wait(2);
         const url = await storage()
           .ref(response.data.top[length].uri)
           .getDownloadURL();
         console.log("TOPURL = ", url);
         response.data.top[length].uri = url;
+        console.log("YEAHHHHHH", response.data.bottom[length]);
       } catch (error) {
         console.log(error);
       } finally {
@@ -76,12 +77,13 @@ const Closet = () => {
       }
     } else {
       try {
-        wait(3);
+        wait(2);
         const url = await storage()
           .ref(response.data.bottom[length].uri)
           .getDownloadURL();
         console.log("bottomURL = ", url);
         response.data.bottom[length].uri = url;
+        console.log("YEAHHHHHH", response.data.bottom[length]);
       } catch (error) {
         console.log(error);
       } finally {
@@ -118,4 +120,4 @@ const Closet = () => {
   );
 };
 
-export default Closet;
+export default AddCloth;
