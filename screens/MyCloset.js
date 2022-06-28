@@ -39,7 +39,7 @@ const Image = styled.Image`
 const MyCloset = () => {
   const context = useContext(UserContext);
   const { userInfo } = context;
-
+  //
   return (
     <View>
       <Top>
