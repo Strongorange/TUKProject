@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
+import { getUserFromDB } from "../request";
 import { UserContext } from "../UserContext";
 
 const View = styled.View`
@@ -26,41 +27,44 @@ const Bottom = styled(Top)`
 
 const Text = styled.Text``;
 
-const ImageContainer = styled.View`
-  width: 100%;
-  height: 100%;
+const ImageContainer = styled.FlatList`
+  background-color: grey;
 `;
 
-const Image = styled.Image`
-  width: 100%;
-  height: 100%;
-`;
+const Image = styled.Image``;
 
 const MyCloset = () => {
   const context = useContext(UserContext);
-  const { userInfo } = context;
+  const { userInfo, setUserInfo } = context;
+  const renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text>{item.name}</Text>
+      </View>
+    );
+  };
+
+  useEffect(async () => {
+    const data = await getUserFromDB(userInfo._id);
+    await setUserInfo({
+      ...data.data,
+    });
+  }, []);
   //
   return (
     <View>
       <Top>
         <Text>top</Text>
-        <ImageContainer>
-          {userInfo.top.length > 0 ? (
-            <Image source={{ uri: userInfo.top[0].uri }} />
-          ) : (
-            <Text>상의 없음</Text>
-          )}
-        </ImageContainer>
+        <ImageContainer
+          data={userInfo.top}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+          contentContainerStyle={{ flexGrow: 1 }}
+        />
       </Top>
       <Bottom>
         <Text>Bottom</Text>
-        <ImageContainer>
-          {userInfo.bottom.length > 0 ? (
-            <Image source={{ uri: userInfo.bottom[0].uri }} />
-          ) : (
-            <Text>하의 없음</Text>
-          )}
-        </ImageContainer>
       </Bottom>
     </View>
   );

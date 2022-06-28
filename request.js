@@ -72,3 +72,18 @@ export const updateDB = async (userInfo) => {
 export const showList = () => {
   console.log("hi");
 };
+
+export const getUserFromDB = async (id) => {
+  const data = await axios({
+    method: "post",
+    url: "http://10.0.2.2:3000/user/get",
+    data: {
+      id,
+    },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  }).catch((error) => console.log(error));
+  // console.log("data = \n", data);
+  return data;
+};
