@@ -12,6 +12,7 @@ import Swiper from "react-native-swiper";
 import Cloth from "../Cloth";
 import { feedback } from "../feedback";
 import { UserContext } from "../UserContext";
+import CRecommend from "../CRecommend";
 
 const APIKEY = "d36e240854776bb1f3d044a7c0c03543";
 
@@ -127,12 +128,11 @@ const icons = {
 
 const Home = ({ navigation }) => {
   const context = useContext(UserContext);
-  const { isLogin, setIsLogin, setUserInfo, userInfo } = context;
+  const { setUserInfo, userInfo } = context;
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isRefresh, setIsRefresh] = useState(false);
-  console.log("From Home UserInfo\n\n\n\n\n", userInfo);
+  // console.log("From Home UserInfo\n\n\n\n\n", userInfo);
   const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
     if (!granted) {
@@ -150,12 +150,8 @@ const Home = ({ navigation }) => {
     setLoading(false);
   };
 
-  const clickWeather = (cityName) => {
-    console.log(cityName);
-  };
-
-  useEffect(() => {
-    getWeather();
+  useEffect(async () => {
+    await getWeather();
   }, []);
 
   return loading ? (
@@ -199,7 +195,14 @@ const Home = ({ navigation }) => {
                 <SlideTime>
                   <Text>
                     {new Date().getFullYear()} / {new Date().getMonth() + 1} /
-                    {new Date().getDate() + index + 1}
+                    {new Date().getDate() + index + 1}{" "}
+                    {CRecommend(
+                      data.temp.max,
+                      data.feels_like.day,
+                      userInfo.top,
+                      userInfo.bottom,
+                      index
+                    )}
                   </Text>
                 </SlideTime>
 
