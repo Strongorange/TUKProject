@@ -48,6 +48,10 @@ const Login = ({ navigation }) => {
     setPasswordText(text);
   };
 
+  useEffect(async () => {
+    // await readF();
+  }, []);
+
   return (
     <View>
       <TextInput placeholder="Id" onChangeText={(text) => onChangeId(text)} />
