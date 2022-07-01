@@ -42,7 +42,7 @@ const Seperator = styled.View`
 const MyCloset = () => {
   const context = useContext(UserContext);
   const { userInfo, setUserInfo } = context;
-  console.log("From MyCloset userInfo\n\n\n\n", userInfo);
+
   const renderItem = ({ item }) => {
     return <Image source={{ uri: item.uri }} />;
   };

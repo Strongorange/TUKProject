@@ -9,8 +9,8 @@ const Image = styled.Image`
 const Text = styled.Text``;
 
 const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
-  const [finalTop, setFinalTop] = useState();
-  const [finalBottom, setFinalBottom] = useState();
+  const [finalTop, setFinalTop] = useState([]);
+  const [finalBottom, setFinalBottom] = useState([]);
 
   useEffect(() => {
     if (feels_like > 30) {
@@ -52,10 +52,8 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
     }
   }, []);
 
-  if (finalTop == undefined || finalBottom == undefined) {
-    return <Text>Not Hi</Text>;
-  } else {
-    if (isTop) {
+  if (isTop) {
+    if (finalTop.length) {
       return (
         <Image
           source={{
@@ -63,16 +61,19 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
           }}
         />
       );
-    } else if (!isTop) {
+    }
+    return <Text>상의 없음</Text>;
+  } else {
+    if (finalBottom.length) {
       return (
         <Image
           source={{
-            uri: finalBottom[Math.floor(Math.random() * finalBottom.length)]
-              .uri,
+            uri: finalTop[Math.floor(Math.random() * finalTop.length)].uri,
           }}
         />
       );
     }
+    return <Text>하의 없음</Text>;
   }
 };
 

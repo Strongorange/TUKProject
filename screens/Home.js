@@ -150,21 +150,8 @@ const Home = ({ navigation }) => {
     setLoading(false);
   };
 
-  const getRange = (feels_like) => {
-    //
-    if (feels_like > 30) {
-      setRange(0);
-    } else if (feels_like > 26) {
-      setRange(1);
-    } else if (feels_like > 22) {
-      setRange(2);
-    } else if (feels_like > 218) {
-      setRange(3);
-    }
-  };
-
-  useEffect(async () => {
-    await getWeather();
+  useEffect(() => {
+    getWeather();
   }, []);
 
   return loading ? (
@@ -236,14 +223,13 @@ const Home = ({ navigation }) => {
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
-
                   <CRecommend
                     feels_like={data.feels_like.day}
                     tops={userInfo.top}
                     bottoms={userInfo.bottom}
                     isTop={true}
                   />
-                  <Touchable onPress={() => feedback(true, index + 1)}>
+                  <Touchable>
                     <Fontisto
                       name="day-sunny"
                       size={25}
@@ -260,7 +246,7 @@ const Home = ({ navigation }) => {
                     bottoms={userInfo.bottom}
                     isTop={false}
                   />
-                  <Touchable onPress={() => feedback(false, index + 1)}>
+                  <Touchable>
                     <Fontisto
                       name="snowflake-5"
                       size={25}

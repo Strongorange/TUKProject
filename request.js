@@ -36,7 +36,7 @@ export const loginRequest = async (username, password) => {
   return data;
 };
 
-export const sendPhoto = async (isTop, id, range, url) => {
+export const sendPhoto = async (isTop, id, range, url, clothIndex) => {
   // console.log(isTop, id, base64);
   const data = await axios({
     method: "post",
@@ -46,6 +46,7 @@ export const sendPhoto = async (isTop, id, range, url) => {
       isTop,
       range,
       url,
+      clothIndex,
     },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
