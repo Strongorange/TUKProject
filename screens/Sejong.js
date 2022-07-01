@@ -4,7 +4,6 @@ import * as Location from "expo-location";
 import { ActivityIndicator, Dimensions, Image } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
-import Cloth from "../Cloth";
 
 const APIKEY = "d36e240854776bb1f3d044a7c0c03543";
 

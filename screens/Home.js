@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
-import Cloth from "../Cloth";
-import { feedback } from "../feedback";
+
 import { UserContext } from "../UserContext";
 import CRecommend from "../CRecommend";
 
@@ -132,6 +131,7 @@ const Home = ({ navigation }) => {
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [range, setRange] = useState(0);
   // console.log("From Home UserInfo\n\n\n\n\n", userInfo);
   const getWeather = async () => {
     const { granted } = await Location.requestForegroundPermissionsAsync();
@@ -148,6 +148,19 @@ const Home = ({ navigation }) => {
     ).then((res) => res.json());
     setForecasts(response);
     setLoading(false);
+  };
+
+  const getRange = (feels_like) => {
+    //
+    if (feels_like > 30) {
+      setRange(0);
+    } else if (feels_like > 26) {
+      setRange(1);
+    } else if (feels_like > 22) {
+      setRange(2);
+    } else if (feels_like > 218) {
+      setRange(3);
+    }
   };
 
   useEffect(async () => {
@@ -196,13 +209,7 @@ const Home = ({ navigation }) => {
                   <Text>
                     {new Date().getFullYear()} / {new Date().getMonth() + 1} /
                     {new Date().getDate() + index + 1}{" "}
-                    {CRecommend(
-                      data.temp.max,
-                      data.feels_like.day,
-                      userInfo.top,
-                      userInfo.bottom,
-                      index
-                    )}
+                    {/* {console.log(`${JSON.stringify(data)}\n\n`)} */}
                   </Text>
                 </SlideTime>
 
@@ -229,7 +236,13 @@ const Home = ({ navigation }) => {
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
-                  <Cloth index={index + 1} isShirt={true} />
+
+                  <CRecommend
+                    feels_like={data.feels_like.day}
+                    tops={userInfo.top}
+                    bottoms={userInfo.bottom}
+                    isTop={true}
+                  />
                   <Touchable onPress={() => feedback(true, index + 1)}>
                     <Fontisto
                       name="day-sunny"
@@ -241,7 +254,12 @@ const Home = ({ navigation }) => {
                 <ClothSeparator />
                 <SlideClothColumn>
                   <Text>하의</Text>
-                  <Cloth index={index + 1} isShirt={false} />
+                  <CRecommend
+                    feels_like={data.feels_like.day}
+                    tops={userInfo.top}
+                    bottoms={userInfo.bottom}
+                    isTop={false}
+                  />
                   <Touchable onPress={() => feedback(false, index + 1)}>
                     <Fontisto
                       name="snowflake-5"

@@ -88,7 +88,7 @@ const AddCloth = () => {
     setUserInfo({
       ...response.data,
     });
-    console.log("From AddCloth Fianl UserInfo\n\n\n\n", userInfo);
+    // console.log("From AddCloth Fianl UserInfo\n\n\n\n", userInfo);
     isTop ? setTopSliderVal(0) : setBottomSliderVal(0);
     Alert.alert("Done");
     return;
