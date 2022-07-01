@@ -76,7 +76,9 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
               uri: finalTopItem.uri,
             }}
           />
-          <Touchable>
+          <Touchable
+            onPress={() => sendClothIndex(isTop, finalTopItem.clothIndex)}
+          >
             <Text>꺼내기</Text>
           </Touchable>
         </>
@@ -92,7 +94,9 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
               uri: finalBottomItem.uri,
             }}
           />
-          <Touchable>
+          <Touchable
+            onPress={() => sendClothIndex(isTop, finalTopItem.clothIndex)}
+          >
             <Text>꺼내기</Text>
           </Touchable>
         </>
