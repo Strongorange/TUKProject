@@ -46,6 +46,9 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
     } else if (feels_like > -10) {
       setFinalTop(tops.filter((c) => c.range == 10));
       setFinalBottom(bottoms.filter((c) => c.range == 10));
+    } else {
+      setFinalTop(tops.filter((c) => c.range == 10));
+      setFinalBottom(bottoms.filter((c) => c.range == 10));
     }
   }, []);
 
