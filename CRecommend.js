@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
+import { sendClothIndex } from "./request";
 
 const Image = styled.Image`
   width: 140px;
   height: 140px;
 `;
 
+const Touchable = styled.TouchableOpacity``;
+
 const Text = styled.Text``;
 
 const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
   const [finalTop, setFinalTop] = useState([]);
   const [finalBottom, setFinalBottom] = useState([]);
+  const [finalTopItem, setFinalTopItem] = useState({});
+  const [finalBottomItem, setFinalBottomItem] = useState({});
 
   useEffect(() => {
     if (feels_like > 30) {
@@ -52,25 +57,45 @@ const CRecommend = ({ feels_like, tops, bottoms, isTop }) => {
     }
   }, []);
 
+  useEffect(() => {
+    setFinalTopItem(finalTop[Math.floor(Math.random() * finalTop.length)]);
+  }, [finalTop]);
+
+  useEffect(() => {
+    setFinalBottomItem(
+      finalBottom[Math.floor(Math.random() * finalBottom.length)]
+    );
+  }, [finalBottom]);
+
   if (isTop) {
-    if (finalTop.length) {
+    if (finalTopItem) {
       return (
-        <Image
-          source={{
-            uri: finalTop[Math.floor(Math.random() * finalTop.length)].uri,
-          }}
-        />
+        <>
+          <Image
+            source={{
+              uri: finalTopItem.uri,
+            }}
+          />
+          <Touchable>
+            <Text>꺼내기</Text>
+          </Touchable>
+        </>
       );
     }
     return <Text>상의 없음</Text>;
   } else {
-    if (finalBottom.length) {
+    if (finalBottomItem) {
       return (
-        <Image
-          source={{
-            uri: finalTop[Math.floor(Math.random() * finalTop.length)].uri,
-          }}
-        />
+        <>
+          <Image
+            source={{
+              uri: finalBottomItem.uri,
+            }}
+          />
+          <Touchable>
+            <Text>꺼내기</Text>
+          </Touchable>
+        </>
       );
     }
     return <Text>하의 없음</Text>;

@@ -150,8 +150,8 @@ const Home = ({ navigation }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    getWeather();
+  useEffect(async () => {
+    await getWeather();
   }, []);
 
   return loading ? (

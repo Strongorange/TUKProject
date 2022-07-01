@@ -85,3 +85,22 @@ export const getUserFromDB = async (id) => {
   // console.log("data = \n", data);
   return data;
 };
+
+export const sendClothIndex = async (isTop, clothIndex) => {
+  //
+  const data = await axios({
+    method: "post",
+    url: `http://10.0.2.2:3000/arduino/${
+      isTop ? "top" : "bottom"
+    }/${clothIndex}`,
+    data: {
+      isTop,
+      clothIndex,
+    },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  }).catch((error) => console.log(error));
+  // console.log("data = \n", data);
+  return data;
+};
