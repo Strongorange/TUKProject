@@ -55,3 +55,5 @@ web-build/
 dist/
 
 아이디어.txt
+
+.env

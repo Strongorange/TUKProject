@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components/native";
 import * as Location from "expo-location";
-import { ActivityIndicator, Dimensions, Image } from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
+
+import { UserContext } from "../UserContext";
 import CRecommend from "../CRecommend";
 
 const APIKEY = "d36e240854776bb1f3d044a7c0c03543";
@@ -99,6 +101,8 @@ const Text = styled.Text`
   color: black;
 `;
 
+const Touchable = styled.TouchableOpacity``;
+
 const icons = {
   Clouds: "cloudy",
   Thunderstorm: "lightning",
@@ -116,15 +120,17 @@ const icons = {
   Clear: "day-sunny",
 };
 
-const Seoul = () => {
+const Seoul = ({ navigation }) => {
+  const context = useContext(UserContext);
+  const { setUserInfo, userInfo } = context;
   const [ok, setOk] = useState(true);
   const [forecasts, setForecasts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isRefresh, setIsRefresh] = useState(false);
-
+  const [range, setRange] = useState(0);
+  // console.log("From Seoul UserInfo\n\n\n\n\n", userInfo);
   const getWeather = async () => {
-    const latitude = 37.5683;
-    const longitude = 126.9778;
+    const latitude = 37.56;
+    const longitude = 126.97;
 
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=alerts,minutely,hourly&appid=${APIKEY}&lang=kr`
@@ -133,8 +139,8 @@ const Seoul = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    getWeather();
+  useEffect(async () => {
+    await getWeather();
   }, []);
 
   return loading ? (
@@ -178,7 +184,8 @@ const Seoul = () => {
                 <SlideTime>
                   <Text>
                     {new Date().getFullYear()} / {new Date().getMonth() + 1} /
-                    {new Date().getDate() + index + 1}
+                    {new Date().getDate() + index + 1}{" "}
+                    {/* {console.log(`${JSON.stringify(data)}\n\n`)} */}
                   </Text>
                 </SlideTime>
 
@@ -201,25 +208,40 @@ const Seoul = () => {
                   </SlideWeatherColumn>
                 </SlideForecast>
               </SlideWeatherContainer>
+
               <SlideClothContainer>
                 <SlideClothColumn>
                   <Text>상의</Text>
-                  <Cloth index={index + 1} isShirt={true} />
-                  <Fontisto
-                    name="like"
-                    size={25}
-                    style={{ color: "skyblue" }}
+                  <CRecommend
+                    feels_like={data.feels_like.day}
+                    tops={userInfo.top}
+                    bottoms={userInfo.bottom}
+                    isTop={true}
                   />
+                  <Touchable>
+                    <Fontisto
+                      name="day-sunny"
+                      size={25}
+                      style={{ color: "tomato" }}
+                    />
+                  </Touchable>
                 </SlideClothColumn>
                 <ClothSeparator />
                 <SlideClothColumn>
                   <Text>하의</Text>
-                  <Cloth index={index + 1} isShirt={false} />
-                  <Fontisto
-                    name="dislike"
-                    size={25}
-                    style={{ color: "tomato" }}
+                  <CRecommend
+                    feels_like={data.feels_like.day}
+                    tops={userInfo.top}
+                    bottoms={userInfo.bottom}
+                    isTop={false}
                   />
+                  <Touchable>
+                    <Fontisto
+                      name="snowflake-5"
+                      size={25}
+                      style={{ color: "skyblue" }}
+                    />
+                  </Touchable>
                 </SlideClothColumn>
               </SlideClothContainer>
             </SlideContainer>

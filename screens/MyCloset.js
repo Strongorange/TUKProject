@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import { getUserFromDB } from "../request";
+import { getUserFromDB, sendClothIndex } from "../request";
 import { UserContext } from "../UserContext";
 
 const View = styled.View`
@@ -25,7 +25,9 @@ const Bottom = styled(Top)`
   background-color: greenyellow;
 `;
 
-const Text = styled.Text``;
+const Text = styled.Text`
+  font-size: 20px;
+`;
 
 const ImageContainer = styled.FlatList``;
 
@@ -39,12 +41,23 @@ const Seperator = styled.View`
   height: 10px;
 `;
 
+const TouchableOpacity = styled.TouchableOpacity`
+  align-items: center;
+`;
+
 const MyCloset = () => {
   const context = useContext(UserContext);
   const { userInfo, setUserInfo } = context;
 
   const renderItem = ({ item }) => {
-    return <Image source={{ uri: item.uri }} />;
+    return (
+      <TouchableOpacity
+        onPress={() => sendClothIndex(item.isTop, item.clothIndex)}
+      >
+        <Image source={{ uri: item.uri }} />
+        <Text>꺼내기</Text>
+      </TouchableOpacity>
+    );
   };
 
   useEffect(async () => {

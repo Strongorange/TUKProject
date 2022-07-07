@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components/native";
 import * as Location from "expo-location";
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  ToastAndroid,
-} from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Swiper from "react-native-swiper";
 

@@ -147,6 +147,7 @@ const Drawer = () => {
       <DrawerNav.Screen name="세종" component={Sejong} />
       <DrawerNav.Screen name="대구" component={Daegu} />
       <DrawerNav.Screen name="광주" component={Gwangju} />
+
       <DrawerNav.Screen name="모터" component={Motor} />
       <DrawerNav.Screen name="옷추가" component={AddCloth} />
       <DrawerNav.Screen name="옷장" component={MyCloset} />
